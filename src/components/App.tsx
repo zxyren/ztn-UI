@@ -60,7 +60,7 @@ export default function VideoDownloader() {
   const [selectedDirectory, setSelectedDirectory] = useState<FileSystemDirectoryHandle | null>(null);
   const [stats, setStats] = useState<StatsData>({ total: 0, completed: 0, downloading: 0, queue: [] });
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(50);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
