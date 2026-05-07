@@ -1,28 +1,31 @@
-import { Alert02Icon } from '@hugeicons/core-free-icons';
+import { Unlink04Icon } from '@hugeicons/core-free-icons';
 
-type PlatformIcon = { type: 'iconza'; name: string } | { type: 'hugeicons'; icon: typeof Alert02Icon };
+type PlatformIcon = { type: 'iconza'; name: string } | { type: 'hugeicons'; icon: typeof Unlink04Icon };
 
 export const getPlatformIcon = (url: string): PlatformIcon => {
-  const urlLower = url.toLowerCase();
-  if (urlLower.includes('youtube') || urlLower.includes('youtu.be')) return { type: 'iconza', name: 'YouTube' };
-  if (urlLower.includes('facebook')) return { type: 'iconza', name: 'FacebookSquare' };
-  if (urlLower.includes('tiktok')) return { type: 'iconza', name: 'TikTokFill' };
-  if (urlLower.includes('instagram')) return { type: 'iconza', name: 'Instagram' };
-  if (urlLower.includes('pin')) return { type: 'iconza', name: 'Pinterest' };
-  if (urlLower.includes('x.com')) return { type: 'iconza', name: 'X Light' };
-  if (urlLower.includes('linkedin')) return { type: 'iconza', name: 'LinkedIn' };
-  if (urlLower.includes('reddit')) return { type: 'iconza', name: 'Reddit' };
-  if (urlLower.includes('twitch')) return { type: 'iconza', name: 'Twitch' };
-  if (urlLower.includes('snapchat')) return { type: 'iconza', name: 'Snapchat' };
-  if (urlLower.includes('vk.com')) return { type: 'iconza', name: 'VK' };
-  if (urlLower.includes('xiaohongshu')) return { type: 'iconza', name: 'RedNote' };
-  if (urlLower.includes('bilibili')) return { type: 'iconza', name: 'Bilibili' };
-  if (urlLower.includes('vimeo')) return { type: 'iconza', name: 'Vimeo' };
-  if (urlLower.includes('capcut')) return { type: 'iconza', name: 'CapCut' };
-  if (urlLower.includes('kwai')) return { type: 'iconza', name: 'Kwai' };
-  if (urlLower.includes('behance')) return { type: 'iconza', name: 'BehanceFill' };
-  if (urlLower.includes('dribbble')) return { type: 'iconza', name: 'Dribbble' };
-  if (urlLower.includes('dai.ly') && urlLower.includes('reel')) return { type: 'iconza', name: 'Dailymotion' };
-  if (urlLower.includes('500px.com')) return { type: 'iconza', name: '500px Light' };
-  return { type: 'hugeicons', icon: Alert02Icon };
+  try {
+    const u = new URL(url);
+    const host = u.hostname.toLowerCase();
+    if (host.includes('youtube.com') || host === 'youtu.be') return { type: 'iconza', name: 'YouTube' };
+    if (host.includes('facebook.com')) return { type: 'iconza', name: 'FacebookSquare' };
+    if (host.includes('tiktok.com')) return { type: 'iconza', name: 'TikTokFill' };
+    if (host.includes('instagram.com')) return { type: 'iconza', name: 'Instagram' };
+    if (host.includes('pinterest.com')) return { type: 'iconza', name: 'Pinterest' };
+    if (host === 'x.com' || host.includes('twitter.com')) return { type: 'iconza', name: 'X Light' };
+    if (host.includes('linkedin.com')) return { type: 'iconza', name: 'LinkedIn' };
+    if (host.includes('reddit.com')) return { type: 'iconza', name: 'Reddit' };
+    if (host.includes('twitch.tv')) return { type: 'iconza', name: 'Twitch' };
+    if (host.includes('snapchat.com')) return { type: 'iconza', name: 'Snapchat' };
+    if (host === 'vk.com') return { type: 'iconza', name: 'VK' };
+    if (host.includes('xiaohongshu.com')) return { type: 'iconza', name: 'RedNote' };
+    if (host.includes('bilibili.com')) return { type: 'iconza', name: 'Bilibili' };
+    if (host.includes('vimeo.com')) return { type: 'iconza', name: 'Vimeo' };
+    if (host.includes('capcut.com')) return { type: 'iconza', name: 'CapCut' };
+    if (host.includes('kwai.com')) return { type: 'iconza', name: 'Kwai' };
+    if (host.includes('behance.net')) return { type: 'iconza', name: 'BehanceFill' };
+    if (host.includes('dribbble.com')) return { type: 'iconza', name: 'Dribbble' };
+    if (host === 'dai.ly' || host.includes('dailymotion.com')) return { type: 'iconza', name: 'Dailymotion Light' };
+    if (host.includes('500px.com')) return { type: 'iconza', name: '500px Light' };
+  } catch (e) {}
+  return { type: 'hugeicons', icon: Unlink04Icon };
 };

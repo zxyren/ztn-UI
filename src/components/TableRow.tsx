@@ -5,7 +5,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { ProgressBar } from './Progressbar';
 import { useState, useEffect, useRef } from 'react';
 import { getPlatformIcon } from './PlatformIcon';
-import { ImageNotFound01Icon, Cancel01Icon, Download01Icon } from '@hugeicons/core-free-icons';
+import { ImageNotFound01Icon, Cancel01Icon, Download01Icon, ArrowUpRight01Icon } from '@hugeicons/core-free-icons';
 
 interface TableRowProps {
   item: DownloadItem;
@@ -117,7 +117,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
           {platformIcon.type === 'iconza' ? (
             <Icon name={platformIcon.name} size={16} className='drop-shadow-lg sm:size-[22px]' />
           ) : (
-            <HugeiconsIcon icon={platformIcon.icon} size={16} className='text-yellow-400 drop-shadow-lg sm:size-[22px]' />
+            <HugeiconsIcon icon={platformIcon.icon} size={16} className='text-sky-400 sm:size-[22px]' />
           )}
         </div>
       </div>
