@@ -75,7 +75,6 @@ export function DownloadControls({
     <div className='space-y-6'>
       {/* URL Input */}
       <div>
-        <label className='mb-1.5 block text-sm font-semibold uppercase tracking-wider text-white/40 sm:text-base'>URL</label>
         <div className='flex flex-col gap-2 sm:flex-row sm:gap-3'>
           <div className='relative flex-1'>
             <input

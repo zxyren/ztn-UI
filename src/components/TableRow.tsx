@@ -132,7 +132,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
             title={title || undefined}
             className='line-clamp-2 block min-w-[100px] flex-1 text-xs font-semibold text-white/75 hover:text-indigo-400 hover:underline sm:text-sm'
           >
-            {title || item.url}
+            {title || item.url} 🡵
           </a>
           <span className={`shrink-0 rounded-lg border px-1.5 py-0.5 text-[9px] font-bold sm:text-[10px] ${badge.cls}`}>{badge.label}</span>
           {item.image_count && item.image_count > 1 && (
