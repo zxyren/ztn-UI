@@ -1,11 +1,10 @@
 import { Icon } from 'iconza';
 import { apiFetch, API_BASE_URL, SESSION_ID, type DownloadItem } from './App';
 import { StatusBadge } from './StatusBadge';
-import { HugeiconsIcon } from '@hugeicons/react';
 import { ProgressBar } from './Progressbar';
 import { useState, useEffect, useRef } from 'react';
 import { getPlatformIcon } from './PlatformIcon';
-import { ImageNotFound01Icon, Cancel01Icon, Download01Icon } from '@hugeicons/core-free-icons';
+import { ArrowDownToLine, ImageOff, X } from 'lucide-react';
 
 interface TableRowProps {
   item: DownloadItem;
@@ -90,6 +89,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
   const isCompleted = item.status === 'Completed';
   const canCancel = ['Queued', 'Starting', 'Downloading', 'Converting', 'Merging'].includes(item.status) && !cancelling;
   const platformIcon = getPlatformIcon(item.url);
+  const PlatformIcon = platformIcon.type !== 'iconza' ? platformIcon.icon : null;
   const badge = FORMAT_BADGE[item.format ?? 'video'] ?? FORMAT_BADGE.video;
   const speedLabel =
     item.status === 'Downloading'
@@ -108,16 +108,16 @@ export function TableRow({ item, onCancel }: TableRowProps) {
           </div>
         ) : thumbError || !thumbnail ? (
           <div className='flex h-full w-full items-center justify-center bg-white/5'>
-            <HugeiconsIcon icon={ImageNotFound01Icon} size={24} className='text-whitew sm:size-8' />
+            <ImageOff size={24} strokeWidth={1.5} className='text-white sm:size-8' />
           </div>
         ) : (
           <img src={thumbnail} alt='Thumbnail' className='h-full w-full object-cover' onError={() => setThumbError(true)} />
         )}
         <div className='absolute left-1 top-1 sm:left-1.5 sm:top-1.5'>
           {platformIcon.type === 'iconza' ? (
-            <Icon name={platformIcon.name} size={16} className='drop-shadow-lg sm:size-[22px]' />
+            <Icon name={platformIcon.name} size={23} className='drop-shadow-lg' />
           ) : (
-            <HugeiconsIcon icon={platformIcon.icon} size={16} className='text-sky-400 sm:size-[22px]' />
+            PlatformIcon && <PlatformIcon size={16} className='text-sky-400' />
           )}
         </div>
       </div>
@@ -132,7 +132,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
             title={title || undefined}
             className='line-clamp-2 block min-w-[100px] flex-1 text-xs font-semibold text-white/75 hover:text-indigo-400 hover:underline sm:text-sm'
           >
-            {title || item.url} 🡵
+            {title || item.url}
           </a>
           <span className={`shrink-0 rounded-lg border px-1.5 py-0.5 text-[9px] font-bold sm:text-[10px] ${badge.cls}`}>{badge.label}</span>
           {item.image_count && item.image_count > 1 && (
@@ -162,7 +162,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
                 title={downloading ? 'Saving…' : `Save ${item.filename ?? 'file'}`}
                 className='flex h-7 w-7 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/15 text-emerald-400 transition-colors hover:bg-emerald-500/25 disabled:opacity-40 sm:h-9 sm:w-9'
               >
-                <HugeiconsIcon icon={Download01Icon} size={14} className={`sm:size-4 ${downloading ? 'animate-bounce' : ''}`} />
+                <ArrowDownToLine size={14} className={`sm:size-4 ${downloading ? 'animate-bounce' : ''}`} />
               </button>
             )}
 
@@ -173,7 +173,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
                 title='Cancel'
                 className='flex h-7 w-7 items-center justify-center rounded-lg border border-rose-500/30 bg-rose-500/15 text-rose-400 transition-colors hover:bg-rose-500/25 disabled:opacity-40 sm:h-9 sm:w-9'
               >
-                <HugeiconsIcon icon={Cancel01Icon} size={14} className={`sm:size-4 ${cancelling ? 'animate-spin' : ''}`} />
+                <X size={14} className={`sm:size-4 ${cancelling ? 'animate-spin' : ''}`} />
               </button>
             )}
           </div>

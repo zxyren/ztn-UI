@@ -1,6 +1,6 @@
-import { Unlink04Icon } from '@hugeicons/core-free-icons';
+import { Unlink } from 'lucide-react';
 
-type PlatformIcon = { type: 'iconza'; name: string } | { type: 'hugeicons'; icon: typeof Unlink04Icon };
+type PlatformIcon = { type: 'iconza'; name: string } | { type: 'lucide'; icon: typeof Unlink };
 
 export const getPlatformIcon = (url: string): PlatformIcon => {
   try {
@@ -29,5 +29,5 @@ export const getPlatformIcon = (url: string): PlatformIcon => {
     if (host.includes('bsky.app')) return { type: 'iconza', name: 'Bluesky' };
     if (host.includes('rutube.ru')) return { type: 'iconza', name: 'Rutube' };
   } catch (e) {}
-  return { type: 'hugeicons', icon: Unlink04Icon };
+  return { type: 'lucide', icon: Unlink };
 };

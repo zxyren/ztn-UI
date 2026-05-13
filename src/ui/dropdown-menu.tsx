@@ -4,8 +4,7 @@ import * as React from 'react';
 import { DropdownMenu as DropdownMenuPrimitive } from 'radix-ui';
 
 import { cn } from '../lib/utils';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { Tick02Icon, ArrowRight01Icon } from '@hugeicons/core-free-icons';
+import { ArrowRight, Check } from 'lucide-react';
 
 function DropdownMenu({ ...props }: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
   return <DropdownMenuPrimitive.Root data-slot='dropdown-menu' {...props} />;
@@ -89,7 +88,7 @@ function DropdownMenuCheckboxItem({
         data-slot='dropdown-menu-checkbox-item-indicator'
       >
         <DropdownMenuPrimitive.ItemIndicator>
-          <HugeiconsIcon icon={Tick02Icon} className='text-emerald-400' />
+          <Check className='text-emerald-400' />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -116,7 +115,7 @@ function DropdownMenuRadioItem({ className, children, ...props }: React.Componen
         data-slot='dropdown-menu-radio-item-indicator'
       >
         <DropdownMenuPrimitive.ItemIndicator>
-          <HugeiconsIcon icon={Tick02Icon} className='text-emerald-400' />
+          <Check className='text-emerald-400' />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -178,7 +177,7 @@ function DropdownMenuSubTrigger({
       {...props}
     >
       {children}
-      <HugeiconsIcon icon={ArrowRight01Icon} className='ml-auto text-white/30' />
+      <ArrowRight className='ml-auto text-white/30' />
     </DropdownMenuPrimitive.SubTrigger>
   );
 }

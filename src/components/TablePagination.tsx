@@ -1,3 +1,4 @@
+import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,8 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { ArrowLeft01Icon, ArrowRight01Icon, Tick02Icon } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
 
 interface TablePaginationProps {
   currentPage: number;
@@ -54,7 +53,7 @@ export function TablePagination({
                 className='flex justify-between text-white/60 hover:text-white focus:text-white'
               >
                 {value}
-                {rowsPerPage === value && <HugeiconsIcon icon={Tick02Icon} size={15} className='text-emerald-400' />}
+                {rowsPerPage === value && <Check size={15} className='text-emerald-400' />}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
@@ -81,7 +80,7 @@ export function TablePagination({
           disabled={currentPage <= 1}
           className='flex h-8 items-center gap-0.5 rounded-lg border border-white/10 bg-white/5 px-2 text-xs text-white/50 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white disabled:opacity-30 sm:h-9 sm:rounded-xl sm:px-3 sm:text-sm'
         >
-          <HugeiconsIcon size={14} icon={ArrowLeft01Icon} className='sm:size-4' />
+          <ArrowLeft size={14} className='sm:size-4' />
           <span className='ml-0.5 hidden sm:inline'>Previous</span>
         </button>
 
@@ -98,7 +97,7 @@ export function TablePagination({
           className='flex h-8 items-center gap-0.5 rounded-lg border border-white/10 bg-white/5 px-2 text-xs text-white/50 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white disabled:opacity-30 sm:h-9 sm:rounded-xl sm:px-3 sm:text-sm'
         >
           <span className='mr-0.5 hidden sm:inline'>Next</span>
-          <HugeiconsIcon size={14} icon={ArrowRight01Icon} className='sm:size-4' />
+          <ArrowRight size={14} className='sm:size-4' />
         </button>
       </div>
     </div>
