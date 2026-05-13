@@ -168,7 +168,7 @@ export default function VideoDownloader() {
         {/* Main input card */}
         <div className='rounded-2xl border border-white/10 bg-white/5 p-3 shadow-xl backdrop-blur-xl sm:p-4 md:rounded-3xl md:p-6'>
           <div className='mb-3 border-b border-white/10 pb-2 sm:mb-4 sm:pb-3'>
-            <h2 className='text-xl font-semibold text-white sm:text-lg md:text-2xl'>Paste links to start</h2>
+            <h2 className='text-xl font-medium text-white sm:text-lg md:text-2xl'>Paste links to start</h2>
           </div>
           <DownloadControls
             videoLink={videoLink}

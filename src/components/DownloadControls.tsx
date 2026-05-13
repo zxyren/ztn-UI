@@ -78,7 +78,7 @@ export function DownloadControls({
             />
             <button
               onClick={handlePaste}
-              className='bg-white/8 hover:bg-white/12 absolute right-1.5 top-1/2 flex h-8 -translate-y-1/2 items-center gap-1.5 rounded-xl border border-white/15 px-2.5 text-xs font-medium tracking-wider text-white/60 transition-all hover:border-white/25 hover:text-white sm:h-9 sm:px-3 sm:text-sm'
+              className='bg-white/8 hover:bg-white/12 absolute right-1.5 top-1/2 flex h-8 -translate-y-1/2 items-center gap-1.5 rounded-xl border border-white/15 px-2.5 text-xs text-white/60 transition-all hover:border-white/25 hover:text-white sm:h-9 sm:px-3 sm:text-base'
             >
               <ClipboardPaste size={15} />
               <span>Paste</span>
@@ -106,8 +106,8 @@ export function DownloadControls({
         {/* Save Location */}
         <div className='space-y-2 rounded-xl border border-white/10 bg-white/5 p-2.5 sm:rounded-2xl sm:p-3'>
           <div>
-            <p className='text-xs font-semibold uppercase tracking-wider text-white/40 sm:text-base'>Save Location</p>
-            <p className='text-xs text-white/25 sm:text-sm'>Choose where completed files are saved.</p>
+            <h1 className='text-xs font-semibold uppercase tracking-wider text-white/40 sm:text-base'>Save Location</h1>
+            <p className='text-sm text-white/25 sm:text-base'>Choose where completed files are saved.</p>
           </div>
           <div className='flex min-w-0 flex-col gap-2 sm:flex-row sm:gap-2'>
             <motion.button
@@ -164,8 +164,8 @@ export function DownloadControls({
         {/* Batch Upload */}
         <div className='space-y-2 rounded-xl border border-white/10 bg-white/5 p-2.5 sm:space-y-2.5 sm:rounded-2xl sm:p-3'>
           <div>
-            <p className='text-xs font-semibold uppercase tracking-wider text-white/40 sm:text-base'>Batch Upload</p>
-            <p className='text-xs text-white/25 sm:text-sm'>
+            <h1 className='text-xs font-semibold uppercase tracking-wider text-white/40 sm:text-base'>Batch Upload</h1>
+            <p className='text-sm text-white/25 sm:text-base'>
               Drop a <code className='rounded bg-white/10 px-1 py-0.5 text-white/50'>.txt</code> file with many URLs.
             </p>
           </div>
@@ -193,8 +193,8 @@ export function DownloadControls({
               <CloudDownload size={28} className='text-white/30' />
             </div>
             <div>
-              <p className='text-xs font-semibold text-white/60 sm:text-sm'>Drop file here</p>
-              <p className='text-xs text-white/25'>or click to browse</p>
+              <h1 className='text-sm font-semibold text-white/60 sm:text-base'>Drop file here</h1>
+              <p className='text-sm text-white/25'>or click to browse</p>
             </div>
           </label>
         </div>

@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -8,6 +8,21 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Chillax';
+  src: url('/fonts/Chillax.woff2') format('woff2');
+  font-style: normal;
+}
+
 body {
   font-family: 'DM Sans', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Chillax', sans-serif;
 }

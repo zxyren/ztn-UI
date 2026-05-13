@@ -46,7 +46,7 @@ export function DownloadTable({
     <div className='space-y-3 sm:space-y-4'>
       {/* Header: title + pills + clear */}
       <div className='flex flex-wrap items-center justify-between gap-2'>
-        <h2 className='text-xl font-semibold text-white sm:text-lg md:text-2xl'>Download Queue</h2>
+        <h2 className='text-xl font-medium text-white sm:text-lg md:text-2xl'>Download Queue</h2>
         <div className='flex flex-wrap items-center gap-1.5 sm:gap-2'>
           {pills.map((p) => (
             <span key={p.label} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-xs font-medium ${p.cls}`}>
