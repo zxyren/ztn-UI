@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { IconArrowLeft, IconArrowRight, IconCheck } from '@tabler/icons-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -53,7 +53,7 @@ export function TablePagination({
                 className='flex justify-between text-white/60 hover:text-white focus:text-white'
               >
                 {value}
-                {rowsPerPage === value && <Check size={15} className='text-emerald-400' />}
+                {rowsPerPage === value && <IconCheck size={15} className='text-emerald-400' />}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
@@ -80,7 +80,7 @@ export function TablePagination({
           disabled={currentPage <= 1}
           className='flex h-8 items-center gap-0.5 rounded-lg border border-white/10 bg-white/5 px-2 text-xs text-white/50 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white disabled:opacity-30 sm:h-9 sm:rounded-xl sm:px-3 sm:text-sm'
         >
-          <ArrowLeft size={14} className='sm:size-4' />
+          <IconArrowLeft size={14} className='sm:size-4' />
           <span className='ml-0.5 hidden sm:inline'>Previous</span>
         </button>
 
@@ -97,7 +97,7 @@ export function TablePagination({
           className='flex h-8 items-center gap-0.5 rounded-lg border border-white/10 bg-white/5 px-2 text-xs text-white/50 transition-all hover:border-white/20 hover:bg-white/10 hover:text-white disabled:opacity-30 sm:h-9 sm:rounded-xl sm:px-3 sm:text-sm'
         >
           <span className='mr-0.5 hidden sm:inline'>Next</span>
-          <ArrowRight size={14} className='sm:size-4' />
+          <IconArrowRight size={14} className='sm:size-4' />
         </button>
       </div>
     </div>

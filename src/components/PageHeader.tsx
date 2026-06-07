@@ -1,6 +1,6 @@
 import { Icon } from 'iconza';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
-import { BadgeQuestionMark } from 'lucide-react';
+import { IconInfoOctagon } from '@tabler/icons-react';
 
 const supportedPlatforms = [
   { name: 'Facebook', icon: 'FacebookSquare' },
@@ -38,7 +38,7 @@ export function PageHeader() {
           <button className='flex select-none items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white/60 backdrop-blur-sm transition-all hover:border-white/25 hover:bg-white/10 hover:text-white sm:text-sm'>
             <span className='hidden sm:inline'>Supported Services</span>
             <span className='sm:hidden'>Services</span>
-            <BadgeQuestionMark size={23} strokeWidth={1.5} className='text-indigo-400' />
+            <IconInfoOctagon size={23} strokeWidth={1.5} className='text-indigo-400' />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className='mr-3 w-56 border border-white/10 bg-[#0d0f1a]/90 p-2 backdrop-blur-xl sm:w-80'>

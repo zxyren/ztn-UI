@@ -1,7 +1,7 @@
 import { TableRow } from './TableRow';
 import { TablePagination } from './TablePagination';
 import type { DownloadItem } from './App';
-import { Trash2 } from 'lucide-react';
+import { IconTrash } from '@tabler/icons-react';
 
 interface DownloadTableProps {
   queue: DownloadItem[];
@@ -65,7 +65,7 @@ export function DownloadTable({
           className='flex items-center justify-center gap-1 rounded-lg border border-red-500/30 bg-red-500/15 px-2 py-1 text-red-400 transition-colors hover:bg-red-500/25'
         >
           <p className='text-sm'>Clear</p>
-          <Trash2 size={16} />
+          <IconTrash size={16} />
         </button>
       </div>
 

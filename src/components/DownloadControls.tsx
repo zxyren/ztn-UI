@@ -1,6 +1,6 @@
 import { type RefObject } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ClipboardPaste, Film, Folder, Image, Music, Trash2, Upload } from 'lucide-react';
+import { IconBrandYoutube, IconClipboardPlus, IconFolder, IconMusic, IconPhoto, IconTrash, IconUpload } from '@tabler/icons-react';
 
 interface DownloadControlsProps {
   videoLink: string;
@@ -44,19 +44,19 @@ export function DownloadControls({
   const formatButtons = [
     {
       fmt: 'video' as const,
-      icon: Film,
+      icon: IconBrandYoutube,
       label: 'MP4',
       cls: 'rounded-l-xl rounded-r-none border-r-0 border-rose-400/40 bg-rose-500/20 hover:bg-rose-400/30 text-rose-400',
     },
     {
       fmt: 'audio' as const,
-      icon: Music,
+      icon: IconMusic,
       label: 'MP3',
       cls: 'rounded-none border-x-0 border-indigo-400/40 bg-indigo-500/20 hover:bg-indigo-400/30 text-indigo-400',
     },
     {
       fmt: 'image' as const,
-      icon: Image,
+      icon: IconPhoto,
       label: 'IMG',
       cls: 'rounded-r-xl rounded-l-none border-l-0 border-emerald-500/40 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300',
     },
@@ -80,7 +80,7 @@ export function DownloadControls({
               onClick={handlePaste}
               className='bg-indigo-400/10 hover:bg-indigo-400/5 absolute right-1.5 top-1/2 flex h-8 -translate-y-1/2 items-center gap-1.5 rounded-xl border border-indigo-400/15 px-2.5 text-xs text-indigo-400 transition-all hover:border-indigo-400/25 hover:text-indigo-500 sm:h-9 sm:px-3 sm:text-base'
             >
-              <ClipboardPaste size={15} />
+              <IconClipboardPlus size={15} />
               <span>Paste</span>
             </button>
           </div>
@@ -125,7 +125,7 @@ export function DownloadControls({
                     exit={{ opacity: 0, y: -4 }}
                     className='flex min-w-0 items-center truncate'
                   >
-                    <Folder size={16} className='mr-1.5 shrink-0 text-indigo-400 sm:size-5' />
+                    <IconFolder size={16} className='mr-1.5 shrink-0 text-indigo-400 sm:size-5' />
                     <span className='truncate font-semibold text-white'>{selectedDirectory.name}</span>
                   </motion.span>
                 ) : (
@@ -136,7 +136,7 @@ export function DownloadControls({
                     exit={{ opacity: 0 }}
                     className='flex items-center gap-1.5 font-medium'
                   >
-                    <Folder size={16} className='sm:size-5' />
+                    <IconFolder size={16} className='sm:size-5' />
                     <h1 className='text-sm font-medium text-white/60 sm:text-base'>
                       <span className='hidden sm:inline'>Choose</span> Folder
                     </h1>
@@ -155,7 +155,7 @@ export function DownloadControls({
                   onClick={() => setSelectedDirectory(null)}
                   className='flex h-10 items-center justify-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2 text-xs text-white/50 transition-all hover:border-rose-500/30 hover:bg-rose-500/15 hover:text-rose-400 sm:h-11 sm:rounded-xl sm:px-3 sm:text-sm'
                 >
-                  <Trash2 size={16} className='sm:size-5' />
+                  <IconTrash size={16} className='sm:size-5' />
                   <span className='hidden sm:inline'>Clear</span>
                 </motion.button>
               )}
@@ -192,7 +192,7 @@ export function DownloadControls({
             className='flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-white/15 p-4 text-center transition-all hover:border-indigo-400/50 sm:rounded-2xl sm:p-6'
           >
             <div className='flex items-center justify-center rounded-full bg-indigo-400/10 p-4 transition-all duration-300'>
-              <Upload size={28} className='text-indigo-400' />
+              <IconUpload size={28} className='text-indigo-400' />
             </div>
             <div>
               <h1 className='text-sm font-medium text-white/60 sm:text-base'>Drop your file here, or <span className='text-indigo-400'>browse</span></h1>

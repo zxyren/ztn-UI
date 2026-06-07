@@ -4,7 +4,7 @@ import { StatusBadge } from './StatusBadge';
 import { ProgressBar } from './Progressbar';
 import { useState, useEffect, useRef } from 'react';
 import { getPlatformIcon } from './PlatformIcon';
-import { ArrowDownToLine, ImageOff, X } from 'lucide-react';
+import { IconArrowBarToDown, IconPhotoX, IconX } from '@tabler/icons-react';
 
 interface TableRowProps {
   item: DownloadItem;
@@ -108,7 +108,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
           </div>
         ) : thumbError || !thumbnail ? (
           <div className='flex h-full w-full items-center justify-center bg-white/5'>
-            <ImageOff size={24} strokeWidth={1.5} className='text-white sm:size-8' />
+            <IconPhotoX size={24} strokeWidth={1.5} className='text-white sm:size-8' />
           </div>
         ) : (
           <img src={thumbnail} alt='Thumbnail' className='h-full w-full object-cover' onError={() => setThumbError(true)} />
@@ -162,7 +162,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
                 title={downloading ? 'Saving…' : `Save ${item.filename ?? 'file'}`}
                 className='flex h-7 w-7 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/15 text-emerald-400 transition-colors hover:bg-emerald-500/25 disabled:opacity-40 sm:h-9 sm:w-9'
               >
-                <ArrowDownToLine size={14} className={`sm:size-4 ${downloading ? 'animate-bounce' : ''}`} />
+                <IconArrowBarToDown size={14} className={`sm:size-4 ${downloading ? 'animate-bounce' : ''}`} />
               </button>
             )}
 
@@ -173,7 +173,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
                 title='Cancel'
                 className='flex h-7 w-7 items-center justify-center rounded-lg border border-rose-500/30 bg-rose-500/15 text-rose-400 transition-colors hover:bg-rose-500/25 disabled:opacity-40 sm:h-9 sm:w-9'
               >
-                <X size={14} className={`sm:size-4 ${cancelling ? 'animate-spin' : ''}`} />
+                <IconX size={14} className={`sm:size-4 ${cancelling ? 'animate-spin' : ''}`} />
               </button>
             )}
           </div>
