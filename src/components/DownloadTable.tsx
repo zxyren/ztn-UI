@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { TableRow } from './TableRow';
 import { TablePagination } from './TablePagination';
 import type { DownloadItem } from './App';
@@ -24,48 +25,102 @@ export function DownloadTable({
   setRowsPerPage,
   clearDownloads,
   cancelDownload,
-  completed,
-  downloading,
-  total,
 }: DownloadTableProps) {
-  const queued = queue.filter((q) => q.status === 'Queued').length;
-  const failed = Math.max(0, total - completed - downloading - queued);
+  const [activeTab, setActiveTab] = useState<'all' | 'done' | 'loading' | 'queued' | 'failed'>('all');
 
-  const start = (currentPage - 1) * rowsPerPage;
-  const paginated = queue.slice(start, start + rowsPerPage);
-  const totalPages = Math.max(1, Math.ceil(queue.length / rowsPerPage));
+  const completedCount = queue.filter((q) => q.status === 'Completed').length;
+  const downloadingCount = queue.filter((q) => q.status === 'Downloading').length;
+  const queuedCount = queue.filter((q) => q.status === 'Queued').length;
+  const failedCount = queue.filter((q) => ['Error', 'Cancelled'].includes(q.status)).length;
 
-  const pills = [
-    { label: 'Done', value: completed, cls: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' },
-    { label: 'Loading', value: downloading, cls: 'bg-indigo-400/15  text-indigo-400  border-indigo-400/30' },
-    { label: 'Queued', value: queued, cls: 'bg-amber-500/15   text-amber-400   border-amber-500/30' },
-    { label: 'Failed', value: failed, cls: 'bg-rose-500/15    text-rose-400    border-rose-500/30' },
+  const tabs = [
+    {
+      label: 'All',
+      key: 'all' as const,
+      count: queue.length,
+      cls: 'bg-white/10 text-white border-white/15',
+      filter: () => true,
+    },
+    {
+      label: 'Done',
+      key: 'done' as const,
+      count: completedCount,
+      cls: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+      filter: (item: DownloadItem) => item.status === 'Completed',
+    },
+    {
+      label: 'Loading',
+      key: 'loading' as const,
+      count: downloadingCount,
+      cls: 'bg-indigo-400/15 text-indigo-400 border-indigo-400/30',
+      filter: (item: DownloadItem) => item.status === 'Downloading',
+    },
+    {
+      label: 'Queued',
+      key: 'queued' as const,
+      count: queuedCount,
+      cls: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+      filter: (item: DownloadItem) => item.status === 'Queued',
+    },
+    {
+      label: 'Failed',
+      key: 'failed' as const,
+      count: failedCount,
+      cls: 'bg-rose-500/15 text-rose-400 border-rose-500/30',
+      filter: (item: DownloadItem) => ['Error', 'Cancelled'].includes(item.status),
+    },
   ];
+
+  const activeTabData = tabs.find((tab) => tab.key === activeTab) ?? tabs[0];
+  const filteredQueue = queue.filter(activeTabData.filter);
+  const start = (currentPage - 1) * rowsPerPage;
+  const paginated = filteredQueue.slice(start, start + rowsPerPage);
+  const totalPages = Math.max(1, Math.ceil(filteredQueue.length / rowsPerPage));
+  const statusLabel = activeTabData.label === 'All' ? 'items' : activeTabData.label.toLowerCase();
 
   return (
     <div className='space-y-3 sm:space-y-4'>
-      {/* Header: title + pills + clear */}
-      <div className='flex flex-wrap items-center justify-between gap-2'>
-        <h2 className='text-xl font-medium text-white sm:text-lg md:text-2xl'>Download Queue</h2>
-        <div className='flex flex-wrap items-center gap-1.5 sm:gap-2'>
-          {pills.map((p) => (
-            <span key={p.label} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-xs font-medium ${p.cls}`}>
-              {p.value} {p.label}
-            </span>
-          ))}
+      <div className='flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between'>
+        <div className='space-y-2'>
+          <h2 className='text-xl font-semibold text-white sm:text-lg md:text-2xl'>Download Queue</h2>
+          <p className='text-sm text-slate-400'>Filter the queue by status and focus on the items you need right now.</p>
+        </div>
+
+        <div className='rounded-full bg-slate-950/40 p-1.5 ring-1 ring-white/10 shadow-inner'>
+          <div className='flex flex-wrap items-center gap-1.5'>
+            {tabs.map((tab) => {
+              const selected = tab.key === activeTab;
+              return (
+                <button
+                  key={tab.key}
+                  type='button'
+                  onClick={() => {
+                    setActiveTab(tab.key);
+                    setCurrentPage(1);
+                  }}
+                  className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition duration-200 ${selected ? 'bg-white text-slate-950 border-transparent shadow-sm shadow-white/10' : `border-transparent text-slate-300 hover:text-white hover:bg-white/10`} ${tab.key !== 'all' ? 'min-w-[90px]' : ''}`}
+                >
+                  <span>{tab.label}</span>
+                  <span className={`inline-flex h-5 min-w-[1.4rem] items-center justify-center rounded-full px-2 text-sm font-semibold ${selected ? 'bg-slate-300 text-slate-950' : 'bg-white/10 text-slate-300'}`}>
+                    {tab.count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
-      <div className='flex items-center justify-between'>
-        <p className='text-white/50'>
-          {queue.length > 0 ? `${queue.length} item${queue.length > 1 ? 's' : ''} in queue` : 'Queue is empty'}
+      <div className='flex flex-col gap-3 rounded-3xl border border-white/10 bg-slate-950/40 p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between'>
+        <p className='text-sm text-slate-400'>
+          {filteredQueue.length > 0 ? `${filteredQueue.length} ${statusLabel} in queue` : 'Queue is empty'}
         </p>
         <button
           onClick={clearDownloads}
           title='Clear all'
-          className='flex items-center justify-center gap-1 rounded-xl border border-red-500/30 bg-red-500/15 px-4 py-1.5 active:scale-95 duration-200 transition-transform text-red-400 hover:bg-red-500/25'
+          className='inline-flex items-center justify-center gap-1 rounded-xl border border-red-500/30 bg-red-500/15 px-4 py-2 text-sm font-semibold text-red-300 transition duration-200 hover:bg-red-500/25 active:scale-95'
         >
-          <p className='text-base font-medium'>Clear</p>
-          <IconTrash size={20} stroke={1.5} />
+          <IconTrash size={18} stroke={1.5} />
+          Clear
         </button>
       </div>
 
@@ -89,7 +144,7 @@ export function DownloadTable({
         rowsPerPage={rowsPerPage}
         setCurrentPage={setCurrentPage}
         setRowsPerPage={setRowsPerPage}
-        totalItems={queue.length}
+        totalItems={filteredQueue.length}
       />
     </div>
   );
