@@ -60,7 +60,7 @@ export default function VideoDownloader() {
   const [selectedDirectory, setSelectedDirectory] = useState<FileSystemDirectoryHandle | null>(null);
   const [stats, setStats] = useState<StatsData>({ total: 0, completed: 0, downloading: 0, queue: [] });
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(15);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function VideoDownloader() {
       es.onmessage = (e) => {
         try {
           setStats(JSON.parse(e.data));
-        } catch {}
+        } catch { }
       };
       es.onerror = () => {
         es.close();
@@ -101,7 +101,7 @@ export default function VideoDownloader() {
           await w.write(blob);
           await w.close();
           return;
-        } catch {}
+        } catch { }
       }
       const a = document.createElement('a');
       a.href = `${API_BASE_URL}/api/download/${item.id}?session_id=${SESSION_ID}`;
@@ -156,13 +156,13 @@ export default function VideoDownloader() {
   return (
     <div className='relative min-h-screen overflow-hidden bg-[#0d0f1a] py-5 text-white sm:p-4 md:p-6'>
       {/* Ambient glow orbs */}
-      <div className='pointer-events-none fixed inset-0 -z-0'>
+      <div className='pointer-events-none fixed inset-0 z-0'>
         <div className='absolute -right-24 -top-24 h-96 w-96 rounded-full bg-indigo-600/20 blur-3xl' />
         <div className='absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-emerald-600/15 blur-3xl' />
         <div className='absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/10 blur-3xl' />
       </div>
 
-      <div className='relative z-10 mx-auto w-full max-w-[1240px] space-y-3 px-2 sm:space-y-4 sm:px-4 md:space-y-5'>
+      <div className='relative z-10 mx-auto w-full max-w-7xl space-y-3 px-2 sm:space-y-4 sm:px-4 md:space-y-5'>
         <PageHeader />
 
         {/* Main input card */}

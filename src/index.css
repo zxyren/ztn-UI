@@ -1,21 +1,81 @@
-﻿@tailwind base;
-@tailwind components;
-@tailwind utilities;
+﻿@import "tailwindcss";
 
+/* Optional: enables class-based dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Theme tokens exposed to Tailwind utilities */
+@theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+}
+
+/* Light theme */
+:root {
+  --primary: #3b82f6;
+  --secondary: #64748b;
+  --accent: #f59e0b;
+
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #06b6d4;
+
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+}
+
+/* Dark theme */
+.dark {
+  --primary: #60a5fa;
+  --secondary: #94a3b8;
+  --accent: #fbbf24;
+
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --info: #22d3ee;
+
+  --background: #0f172a;
+  --surface: #1e293b;
+  --border: #334155;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+}
+
+/* Fonts */
 @font-face {
-  font-family: 'Manrope';
-  src: url('/fonts/Manrope.woff2') format('woff2');
-  font-style: normal;
+  font-family: "Manrope";
+  src: url("/fonts/Manrope.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: 'Sora';
-  src: url('/fonts/Sora.woff2') format('woff2');
-  font-style: normal;
+  font-family: "Sora";
+  src: url("/fonts/Sora.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
 }
 
 body {
-  font-family: 'Manrope', sans-serif;
+  font-family: "Manrope", sans-serif;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 h1,
@@ -24,5 +84,5 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Sora', sans-serif;
+  font-family: "Sora", sans-serif;
 }

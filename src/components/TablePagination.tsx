@@ -63,7 +63,7 @@ export function TablePagination({
           {totalItems > 0 ? (
             <>
               <span className='text-white/60'>{startItem}</span>
-              {'–'}
+              {'-'}
               <span className='text-white/60'>{endItem}</span>
               {' of '}
               <span className='font-medium text-white/60'>{totalItems}</span>

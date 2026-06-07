@@ -86,8 +86,8 @@ export function DownloadTable({
           <p className='text-sm text-slate-400'>Filter the queue by status and focus on the items you need right now.</p>
         </div>
 
-        <div className='rounded-full bg-slate-950/40 p-1.5 ring-1 ring-white/10 shadow-inner'>
-          <div className='flex flex-wrap items-center gap-1.5'>
+        <div className='rounded-full bg-slate-950/40 p-2 ring-1 ring-white/10 shadow-inner'>
+          <div className='flex flex-wrap items-center justify-center gap-2 sm:justify-start'>
             {tabs.map((tab) => {
               const selected = tab.key === activeTab;
               return (
@@ -98,10 +98,10 @@ export function DownloadTable({
                     setActiveTab(tab.key);
                     setCurrentPage(1);
                   }}
-                  className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition duration-200 ${selected ? 'bg-white text-slate-950 border-transparent shadow-sm shadow-white/10' : `border-transparent text-slate-300 hover:text-white hover:bg-white/10`} ${tab.key !== 'all' ? 'min-w-[90px]' : ''}`}
+                  className={`inline-flex min-w-16 items-center justify-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold transition duration-200 sm:px-4 sm:py-2 sm:text-sm ${selected ? 'bg-white text-slate-950 border-transparent shadow-sm shadow-white/10' : 'border-transparent text-slate-300 hover:text-white hover:bg-white/10'}`}
                 >
                   <span>{tab.label}</span>
-                  <span className={`inline-flex h-5 min-w-[1.4rem] items-center justify-center rounded-full px-2 text-sm font-semibold ${selected ? 'bg-slate-300 text-slate-950' : 'bg-white/10 text-slate-300'}`}>
+                  <span className={`inline-flex h-5 min-w-[1.4rem] items-center justify-center rounded-full px-2 text-[0.65rem] font-semibold ${selected ? 'bg-slate-300 text-slate-950' : 'bg-white/10 text-slate-300'}`}>
                     {tab.count}
                   </span>
                 </button>
