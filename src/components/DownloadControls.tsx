@@ -36,7 +36,14 @@ export function DownloadControls({
 
   const handlePaste = async () => {
     try {
-      setVideoLink(await navigator.clipboard.readText());
+      const text = await navigator.clipboard.readText();
+      const trimmed = text.trim();
+      if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+        try {
+          new URL(trimmed);
+          setVideoLink(trimmed);
+        } catch { /* silent */ }
+      }
     } catch {
       /* silent */
     }
@@ -76,6 +83,9 @@ export function DownloadControls({
               value={videoLink}
               onChange={(e) => setVideoLink(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && queueSingle('video')}
+              onFocus={() => {
+                if (!videoLink) handlePaste();
+              }}
             />
             <Button
               variant='secondary'
