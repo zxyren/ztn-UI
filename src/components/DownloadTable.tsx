@@ -76,7 +76,7 @@ export function DownloadTable({
           <p className='text-white/25'>Paste a URL above to start</p>
         </div>
       ) : (
-        <div>
+        <div className='space-y-3 sm:space-y-4'>
           {paginated.map((item, i) => (
             <TableRow key={item.id} item={item} index={i} onCancel={cancelDownload} />
           ))}
