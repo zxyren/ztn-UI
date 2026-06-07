@@ -168,7 +168,7 @@ export function DownloadControls({
           <div>
             <h1 className='text-xs font-semibold uppercase tracking-wider text-white/40 sm:text-base'>Batch Upload</h1>
             <p className='text-sm text-white/25 sm:text-base'>
-              Drop a <span className='rounded font-mono bg-white/10 px-1 py-0.5 text-white/50'>.txt</span> file with many URLs.
+              Drop a <span className='rounded font-mono bg-white/10 px-1 py-0.5 italic text-white/50'>.txt</span> file with many URLs.
             </p>
           </div>
           <input ref={fileInputRef} type='file' accept='.txt' className='hidden' id='batch-file' onChange={uploadList} />

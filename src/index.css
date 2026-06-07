@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'DM Sans';
-  src: url('/fonts/DMSans.woff2') format('woff2');
+  font-family: 'GoogleSans';
+  src: url('/fonts/GoogleSans.woff2') format('woff2');
   font-style: normal;
 }
 
@@ -15,7 +15,7 @@
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'GoogleSans', sans-serif;
 }
 
 h1,
