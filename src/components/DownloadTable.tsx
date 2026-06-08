@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { TableRow } from './TableRow';
 import { TablePagination } from './TablePagination';
 import type { DownloadItem } from './App';
-import { IconTrash } from '@tabler/icons-react';
+import { IconTrash, IconChevronDown } from '@tabler/icons-react';
 import { Button } from '../ui/button';
 
 interface DownloadTableProps {
@@ -82,7 +82,29 @@ export function DownloadTable({
           <p className='text-sm text-slate-400'>Filter the queue by status and focus on the items you need right now.</p>
         </div>
 
-        <div className='rounded-full bg-slate-950/40 p-2 ring-1 ring-white/10 shadow-inner'>
+        {/* Mobile Dropdown (visible on tablet/mobile) */}
+        <div className='relative md:hidden'>
+          <select
+            className='w-full appearance-none rounded-xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm font-semibold text-white outline-none ring-1 ring-white/5 transition-all focus:border-indigo-500/60 focus:bg-white/5'
+            value={activeTab}
+            onChange={(e) => {
+              setActiveTab(e.target.value as any);
+              setCurrentPage(1);
+            }}
+          >
+            {tabs.map((tab) => (
+              <option key={tab.key} value={tab.key} className='bg-slate-900 text-white'>
+                {tab.label} ({tab.count})
+              </option>
+            ))}
+          </select>
+          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400'>
+            <IconChevronDown size={18} stroke={1.5} />
+          </div>
+        </div>
+
+        {/* Desktop Tabs (visible on desktop) */}
+        <div className='hidden rounded-full bg-slate-950/40 p-2 ring-1 ring-white/10 shadow-inner md:block'>
           <div className='flex flex-wrap items-center justify-center gap-2 sm:justify-start'>
             {tabs.map((tab) => {
               const selected = tab.key === activeTab;
