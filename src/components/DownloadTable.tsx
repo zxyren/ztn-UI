@@ -3,6 +3,7 @@ import { TableRow } from './TableRow';
 import { TablePagination } from './TablePagination';
 import type { DownloadItem } from './App';
 import { IconTrash } from '@tabler/icons-react';
+import { Button } from '../ui/button';
 
 interface DownloadTableProps {
   queue: DownloadItem[];
@@ -109,14 +110,13 @@ export function DownloadTable({
         <p className='text-sm text-slate-400'>
           {filteredQueue.length > 0 ? `${filteredQueue.length} ${statusLabel} in queue` : 'Queue is empty'}
         </p>
-        <button
+        <Button
           onClick={clearDownloads}
-          title='Clear all'
-          className='inline-flex items-center justify-center gap-1 rounded-xl border border-red-500/30 bg-red-500/15 px-4 py-2 text-sm font-semibold text-red-300 transition duration-200 hover:bg-red-500/25 active:scale-95'
+          variant='destructive'
         >
           <IconTrash size={18} stroke={1.5} />
           Clear
-        </button>
+        </Button>
       </div>
 
       {/* Items or empty state */}

@@ -1,6 +1,6 @@
 import { type RefObject } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { IconBrandYoutube, IconClipboardPlus, IconFolder, IconMusic, IconPhoto, IconTrash, IconUpload } from '@tabler/icons-react';
+import { IconBrandYoutube, IconClipboardPlus, IconFolder, IconFolderFilled, IconMusic, IconPhoto, IconTrash, IconUpload } from '@tabler/icons-react';
 import { Button } from '../ui/button';
 
 interface DownloadControlsProps {
@@ -88,12 +88,12 @@ export function DownloadControls({
               }}
             />
             <Button
-              variant='secondary'
+              variant='outline'
               onClick={handlePaste}
               className='absolute right-1.5 top-1/2 flex -translate-y-1/2 items-center gap-1 px-2 py-0 sm:h-10 sm:px-3 sm:text-base active:scale-95 duration-200 transition-transform'
             >
               <IconClipboardPlus size={20} stroke={1.5} />
-              <span>Paste</span>
+              <span className='mt-1'>Paste</span>
             </Button>
           </div>
 
@@ -137,7 +137,7 @@ export function DownloadControls({
                     exit={{ opacity: 0, y: -4 }}
                     className='flex min-w-0 items-center truncate'
                   >
-                    <IconFolder size={16} className='mr-1.5 shrink-0 text-indigo-400 sm:size-5' />
+                    <IconFolderFilled size={16} className='mr-1.5 shrink-0 text-indigo-400 sm:size-5' />
                     <span className='truncate font-semibold text-white'>{selectedDirectory.name}</span>
                   </motion.span>
                 ) : (
@@ -159,17 +159,13 @@ export function DownloadControls({
 
             <AnimatePresence>
               {selectedDirectory && (
-                <motion.button
-                  key='clr'
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
+                <Button
+                  variant='destructive'
                   onClick={() => setSelectedDirectory(null)}
-                  className='flex h-10 items-center justify-center gap-1 rounded-lg border border-white/10 bg-white/5 px-2 text-xs text-white/50 transition-all hover:border-rose-500/30 hover:bg-rose-500/15 hover:text-rose-400 sm:h-11 sm:rounded-xl sm:px-3 sm:text-sm'
                 >
                   <IconTrash size={16} className='sm:size-5' />
                   <span className='hidden sm:inline'>Clear</span>
-                </motion.button>
+                </Button>
               )}
             </AnimatePresence>
           </div>

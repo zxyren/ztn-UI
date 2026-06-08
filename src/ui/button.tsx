@@ -9,10 +9,10 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-primary/20 text-primary-foreground border-primary/40 backdrop-blur-sm hover:bg-primary/30 hover:border-primary/60',
-        destructive: 'bg-rose-500/20 text-rose-500 border-rose-500/40 backdrop-blur-sm hover:bg-rose-500/30 hover:border-rose-500/60',
-        outline: 'border-2 border-zinc-900 bg-white text-zinc-900 hover:bg-yellow-100',
+        destructive: 'bg-destructive/10 text-destructive-foreground border-2 border-destructive/40 backdrop-blur-sm hover:bg-destructive/30 hover:border-destructive/60',
+        outline: 'border-surface/50 bg-transparent hover:bg-surface/5 hover:border-surface/60',
         secondary:
-          'bg-surface/5 text-secondary-foreground border border-surface/70 backdrop-blur-sm hover:bg-surface/10 hover:border-surface/60',
+          'bg-surface/5 text-secondary-foreground border border-surface/50 backdrop-blur-sm hover:bg-surface/10 hover:border-surface/60',
         ghost: 'border-transparent text-zinc-700 hover:bg-zinc-100',
         todo: 'bg-purple-500/20 text-purple-300 border-purple-500/40 backdrop-blur-sm hover:bg-purple-500/30 hover:border-purple-500/60',
         'in-review':
@@ -20,7 +20,6 @@ const buttonVariants = cva(
         'design-review':
           'bg-violet-500/20 text-violet-300 border-violet-500/40 backdrop-blur-sm hover:bg-violet-500/30 hover:border-violet-500/60',
         'on-hold': 'border-2 border-zinc-900 bg-yellow-500 text-white hover:bg-yellow-600',
-        archived: 'border-2 border-zinc-900 bg-white text-zinc-800 hover:bg-yellow-100',
       },
       size: {
         default: 'min-h-9 px-5 py-2',
