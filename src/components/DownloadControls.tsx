@@ -1,6 +1,6 @@
 import { type RefObject } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { IconBrandYoutube, IconClipboardPlus, IconFolder, IconFolderFilled, IconMusic, IconPhoto, IconTrash, IconUpload } from '@tabler/icons-react';
+import { IconClipboardPlus, IconFolder, IconFolderFilled, IconMusic, IconPhoto, IconPlayerPlay, IconTrash, IconUpload } from '@tabler/icons-react';
 import { Button } from '../ui/button';
 
 interface DownloadControlsProps {
@@ -52,7 +52,7 @@ export function DownloadControls({
   const formatButtons = [
     {
       fmt: 'video' as const,
-      icon: IconBrandYoutube,
+      icon: IconPlayerPlay,
       label: 'MP4',
       cls: 'rounded-l-xl rounded-r-none border-r-0 border-lime-400/40 bg-lime-500/20 hover:bg-lime-400/30 text-lime-400',
     },
