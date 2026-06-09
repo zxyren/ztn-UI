@@ -160,11 +160,12 @@ export function DownloadControls({
             <AnimatePresence>
               {selectedDirectory && (
                 <Button
-                  variant='outline'
+                  variant='destructive'
                   onClick={() => setSelectedDirectory(null)}
+                  className='border-2'
                 >
                   <IconTrash size={16} className='sm:size-5' />
-                  <span className='hidden sm:inline'>Clear</span>
+                  <span className='hidden text-base sm:inline'>Clear</span>
                 </Button>
               )}
             </AnimatePresence>

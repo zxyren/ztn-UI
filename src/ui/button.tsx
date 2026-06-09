@@ -12,7 +12,7 @@ const buttonVariants = cva(
           'bg-primary/15 text-primary border-primary/35 hover:bg-primary/25 hover:border-primary/55',
 
         destructive:
-          'bg-gradient-to-br from-red-950 to-red-900 text-red-300 border-red-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_1px_3px_rgba(0,0,0,0.4)] hover:from-red-900 hover:to-red-800 hover:text-red-200 hover:border-red-800 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_2px_8px_rgba(185,28,28,0.35)] active:translate-y-px',
+          'border border-red-500/30 text-red-400 hover:bg-red-500/10 hover:border-red-500/50',
 
         outline:
           'border-border/50 bg-transparent text-secondary-foreground hover:bg-surface/5 hover:border-border hover:text-foreground',
