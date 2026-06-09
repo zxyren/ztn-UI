@@ -55,7 +55,7 @@ export function PageHeader() {
               </div>
             ))}
             <div className='hover:bg-white/8 flex cursor-pointer flex-col items-center gap-1 rounded-lg p-1.5 transition-colors sm:rounded-xl sm:p-2'>
-              <IconDots className='h-4 w-4 sm:h-6 sm:w-6' />
+              <IconDots className='h-6 w-6' />
               <span className='text-xs font-medium text-secondary-foreground sm:text-sm'>More...</span>
             </div>
           </div>
