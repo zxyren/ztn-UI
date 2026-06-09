@@ -4,7 +4,7 @@ import { StatusBadge } from './StatusBadge';
 import { ProgressBar } from './Progressbar';
 import { useState, useEffect, useRef } from 'react';
 import { getPlatformIcon } from './PlatformIcon';
-import { IconArrowBarToDown, IconPhotoX, IconTrash, IconDownloadOff } from '@tabler/icons-react';
+import { IconDownload, IconPhotoX, IconTrash, IconDownloadOff } from '@tabler/icons-react';
 import { Button } from '../ui/button';
 
 interface TableRowProps {
@@ -172,11 +172,11 @@ export function TableRow({ item, onCancel }: TableRowProps) {
                 onClick={handleDownload}
                 disabled={downloading}
                 title={downloading ? 'Saving…' : `Save ${item.filename ?? 'file'}`}
-                size="iconLg"
+                size="iconSm"
                 variant="success"
-                className='rounded-xl border-2 disabled:opacity-40'
+                className='rounded-xl border disabled:opacity-40 sm:h-10 sm:w-10'
               >
-                <IconArrowBarToDown size={16} className={`sm:size-5 ${downloading ? 'animate-bounce' : ''}`} />
+                <IconDownload size={16} className={`sm:size-5 ${downloading ? 'animate-bounce' : ''}`} />
               </Button>
             )}
 
@@ -184,9 +184,9 @@ export function TableRow({ item, onCancel }: TableRowProps) {
               <Button
                 onClick={handleCancel}
                 disabled={cancelling}
-                size="iconLg"
+                size="iconSm"
                 variant="destructive"
-                className='rounded-xl border-2 disabled:opacity-40'
+                className='rounded-xl border disabled:opacity-40 sm:h-10 sm:w-10'
               >
                 <IconDownloadOff size={16} className={`sm:size-5 ${cancelling ? 'animate-spin' : ''}`} />
               </Button>
@@ -195,9 +195,9 @@ export function TableRow({ item, onCancel }: TableRowProps) {
             <Button
               onClick={handleRemove}
               disabled={removing}
-              size="iconLg"
+              size="iconSm"
               variant="destructive"
-              className='rounded-xl border-2 disabled:opacity-40'
+              className='rounded-xl border disabled:opacity-40 sm:h-10 sm:w-10'
             >
               <IconTrash size={16} className={`sm:size-5 ${removing ? 'animate-pulse' : ''}`} />
             </Button>

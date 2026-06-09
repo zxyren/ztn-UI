@@ -4,6 +4,7 @@ import { TablePagination } from './TablePagination';
 import type { DownloadItem } from './App';
 import { IconTrash, IconChevronDown } from '@tabler/icons-react';
 import { Button } from '../ui/button';
+import { Separator } from '../ui/separator';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -163,9 +164,12 @@ export function DownloadTable({
           <p className='text-white/25'>Paste a URL above to start</p>
         </div>
       ) : (
-        <div className='space-y-3 sm:space-y-4'>
+        <div className='space-y-0'>
           {paginated.map((item, i) => (
-            <TableRow key={item.id} item={item} index={i} onCancel={cancelDownload} />
+            <div key={item.id} className='space-y-3'>
+              <TableRow item={item} index={i} onCancel={cancelDownload} />
+              {i < paginated.length - 1 && <Separator className='bg-background/30' />}
+            </div>
           ))}
         </div>
       )}
