@@ -2,10 +2,44 @@ import { Icon } from 'iconza';
 import { apiFetch, API_BASE_URL, SESSION_ID, type DownloadItem } from './App';
 import { StatusBadge } from './StatusBadge';
 import { ProgressBar } from './Progressbar';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { getPlatformIcon } from './PlatformIcon';
 import { IconDownload, IconPhotoX, IconTrash, IconDownloadOff } from '@tabler/icons-react';
 import { Button } from '../ui/button';
+
+// ── Module-level thumbnail cache (shared across all TableRow instances) ────
+const thumbCache = new Map<string, { thumbnail: string; title: string }>();
+const pendingRequests = new Map<string, Promise<{ thumbnail: string; title: string } | null>>();
+
+// ── Deduplicated API fetch with shared promise ────────────────────────────
+async function fetchThumbnail(url: string): Promise<{ thumbnail: string; title: string } | null> {
+  // Check cache first
+  if (thumbCache.has(url)) return thumbCache.get(url)!;
+
+  // Deduplicate in-flight requests for the same URL
+  if (pendingRequests.has(url)) return pendingRequests.get(url)!;
+
+  const promise = (async () => {
+    try {
+      const res = await apiFetch('/api/thumbnail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url }),
+      });
+      const data = await res.json();
+      if (data.thumbnail) {
+        const result = { thumbnail: data.thumbnail, title: data.title || '' };
+        thumbCache.set(url, result);
+        return result;
+      }
+    } catch { /* silent */ }
+    return null;
+  })();
+
+  pendingRequests.set(url, promise);
+  promise.finally(() => pendingRequests.delete(url));
+  return promise;
+}
 
 interface TableRowProps {
   item: DownloadItem;
@@ -27,7 +61,6 @@ export function TableRow({ item, onCancel }: TableRowProps) {
   const [cancelling, setCancelling] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [removing, setRemoving] = useState(false);
-  const fetched = useRef(new Set<string>());
 
   useEffect(() => {
     try {
@@ -36,20 +69,25 @@ export function TableRow({ item, onCancel }: TableRowProps) {
       setThumbError(true);
       return;
     }
-    if (fetched.current.has(item.url)) return;
+
+    // Instant cache hit — no loading spinner
+    if (thumbCache.has(item.url)) {
+      const cached = thumbCache.get(item.url)!;
+      setThumbnail(cached.thumbnail);
+      setTitle(cached.title);
+      return;
+    }
+
+    // Async fetch for other URLs
     setThumbLoading(true);
-    apiFetch('/api/thumbnail', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: item.url }),
-    })
-      .then((r) => r.json())
-      .then((d) => {
-        if (d.thumbnail) {
-          setThumbnail(d.thumbnail);
-          setTitle(d.title || '');
-          fetched.current.add(item.url);
-        } else setThumbError(true);
+    fetchThumbnail(item.url)
+      .then((result) => {
+        if (result) {
+          setThumbnail(result.thumbnail);
+          setTitle(result.title);
+        } else {
+          setThumbError(true);
+        }
       })
       .catch(() => setThumbError(true))
       .finally(() => setThumbLoading(false));
