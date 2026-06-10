@@ -111,6 +111,16 @@
   --muted: #94a3b8;
 }
 
+.text-xxs {
+  font-size: 0.625rem;
+  line-height: 0.75rem;
+}
+
+.text-xxxs {
+  font-size: 0.5625rem;
+  line-height: 0.75rem;
+}
+
 /* Fonts */
 @font-face {
   font-family: "Manrope";

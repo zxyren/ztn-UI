@@ -1,8 +1,8 @@
 import { apiFetch, API_BASE_URL, SESSION_ID, type DownloadItem } from './App';
 import { StatusBadge } from './StatusBadge';
 import { ProgressBar } from './Progressbar';
-import { useState, useEffect } from 'react';
-import { IconDownload, IconTrash, IconDownloadOff, IconUnlink } from '@tabler/icons-react';
+import { useState, useEffect, type ComponentType } from 'react';
+import { IconDownload, IconTrash, IconDownloadOff, IconUnlink, IconPlayerPlay, IconMusic, IconPhoto } from '@tabler/icons-react';
 import { Button } from '../ui/button';
 
 const thumbCache = new Map<string, { thumbnail: string; title: string }>();
@@ -40,10 +40,10 @@ interface TableRowProps {
   onCancel?: (id: number) => void;
 }
 
-const FORMAT_BADGE: Record<string, { label: string; cls: string }> = {
-  audio: { label: 'MP3', cls: 'text-white' },
-  image: { label: 'IMG', cls: 'text-emerald-400' },
-  video: { label: 'MP4', cls: 'text-sky-400' },
+const FORMAT_BADGE: Record<string, { icon: typeof IconMusic; cls: string }> = {
+  audio: { icon: IconMusic, cls: 'text-white' },
+  image: { icon: IconPhoto, cls: 'text-emerald-400' },
+  video: { icon: IconPlayerPlay, cls: 'text-sky-400' },
 };
 
 export function TableRow({ item, onCancel }: TableRowProps) {
@@ -138,6 +138,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
   } catch (e) { }
 
   const badge = FORMAT_BADGE[item.format ?? 'video'] ?? FORMAT_BADGE.video;
+  const BadgeIcon = badge.icon;
   const speedLabel =
     item.status === 'Downloading'
       ? `${((item.id % 15) / 10 + 0.5).toFixed(1)} MB/s`
@@ -171,8 +172,8 @@ export function TableRow({ item, onCancel }: TableRowProps) {
             <IconUnlink size={16} className='text-white/60 drop-shadow-md' />
           )}
         </div>
-        <span className={`absolute right-1 bottom-1 sm:right-1.5 sm:bottom-1.5 rounded-md border border-white/20 bg-black/70 px-1.5 py-0.5 text-[9px] font-bold shadow-sm backdrop-blur-md sm:text-[10px] ${badge.cls}`}>
-          {badge.label}
+        <span className={`absolute right-1 bottom-1 sm:right-1.5 sm:bottom-1.5 inline-flex items-center justify-center rounded-sm bg-black p-1 text-white/90 ${badge.cls}`}>
+          <BadgeIcon size={16} stroke={2} className={badge.cls} />
         </span>
       </div>
 
@@ -190,17 +191,13 @@ export function TableRow({ item, onCancel }: TableRowProps) {
           </a>
           <div className='shrink-0 flex items-center gap-1 sm:gap-2'>
             <StatusBadge status={item.status} />
-            {item.image_count && item.image_count > 1 && (
-              <span className='rounded-lg border border-white/10 bg-white/5 px-1.5 py-0.5 text-[9px] font-bold text-white/40 sm:text-[10px]'>
-                {item.image_count} files → ZIP
-              </span>
-            )}
           </div>
         </div>
 
         {isCompleted && item.metadata ? (
           <div className='text-xs text-white/50 font-medium sm:text-sm'>
             {item.metadata}
+            {item.image_count && item.image_count > 1 ? ` · ${item.image_count} files` : ''}
           </div>
         ) : (
           <div className='flex flex-col gap-1 w-full'>
