@@ -110,20 +110,36 @@ export function TableRow({ item, onCancel }: TableRowProps) {
   const handleDownload = async () => {
     if (downloading) return;
     setDownloading(true);
+
+    const downloadSingle = async (id: number, index?: number, filename?: string) => {
+      try {
+        const query = index !== undefined ? `?index=${index}` : '';
+        const res = await apiFetch(`/api/download/${id}${query}`);
+        if (!res.ok) throw new Error('Failed');
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename ?? 'download';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch {
+        const query = index !== undefined ? `&index=${index}` : '';
+        window.open(`${API_BASE_URL}/api/download/${id}?session_id=${SESSION_ID}${query}`, '_blank');
+      }
+    };
+
     try {
-      const res = await apiFetch(`/api/download/${item.id}`);
-      if (!res.ok) throw new Error('Failed');
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = item.filename ?? 'download';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    } catch {
-      window.open(`${API_BASE_URL}/api/download/${item.id}?session_id=${SESSION_ID}`, '_blank');
+      if (item.filenames && item.filenames.length > 0) {
+        for (let i = 0; i < item.filenames.length; i++) {
+          await downloadSingle(item.id, i, item.filenames[i]);
+          await new Promise(r => setTimeout(r, 500)); // Delay to prevent browser blocking
+        }
+      } else {
+        await downloadSingle(item.id, undefined, item.filename);
+      }
     } finally {
       setDownloading(false);
     }

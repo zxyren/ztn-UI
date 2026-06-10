@@ -34,6 +34,9 @@ export interface DownloadItem {
   format?: string;
   image_count?: number;
   metadata?: string;
+  as_zip?: boolean;
+  filenames?: string[];
+  filepaths?: string[];
 }
 
 export interface StatsData {
@@ -88,9 +91,40 @@ export default function VideoDownloader() {
 
   useEffect(() => {
     stats.queue.forEach(async (item) => {
-      if (item.status !== 'Completed' || !item.filename) return;
+      if (item.status !== 'Completed') return;
       if (getDownloadedIds().has(item.id)) return;
       markDownloaded(item.id);
+
+      // Handle multiple individual files
+      if (item.filenames && item.filenames.length > 0) {
+        for (let idx = 0; idx < item.filenames.length; idx++) {
+          const fname = item.filenames[idx];
+          if (selectedDirectory) {
+            try {
+              const res = await apiFetch(`/api/download/${item.id}?index=${idx}`);
+              if (!res.ok) throw new Error();
+              const blob = await res.blob();
+              const fh = await selectedDirectory.getFileHandle(fname, { create: true });
+              const w = await fh.createWritable();
+              await w.write(blob);
+              await w.close();
+            } catch { }
+          } else {
+            const a = document.createElement('a');
+            a.href = `${API_BASE_URL}/api/download/${item.id}?session_id=${SESSION_ID}&index=${idx}`;
+            a.download = fname;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            await new Promise(r => setTimeout(r, 500)); // Delay for browser to process multiple downloads
+          }
+        }
+        return;
+      }
+
+      // Handle single file (or ZIP)
+      if (!item.filename) return;
 
       if (selectedDirectory) {
         try {
@@ -114,13 +148,13 @@ export default function VideoDownloader() {
     });
   }, [stats.queue, selectedDirectory]);
 
-  const queueSingle = async (format: 'video' | 'audio' | 'image') => {
+  const queueSingle = async (format: 'video' | 'audio' | 'image', asZip: boolean = true) => {
     const link = videoLink.trim();
     if (!link) return alert('Please enter a link');
     const res = await apiFetch('/api/queue', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ urls: [link], format }),
+      body: JSON.stringify({ urls: [link], format, as_zip: asZip }),
     });
     if (res.ok) {
       setStats(await res.json());
@@ -128,12 +162,13 @@ export default function VideoDownloader() {
     }
   };
 
-  const uploadList = async () => {
+  const uploadList = async (asZip: boolean = true) => {
     const file = fileInputRef.current?.files?.[0];
     if (!file) return alert('Choose a .txt file');
     const fd = new FormData();
     fd.append('file', file);
     fd.append('format', 'video');
+    fd.append('as_zip', asZip.toString());
     const res = await apiFetch('/api/upload', { method: 'POST', body: fd });
     if (res.ok) {
       setStats(await res.json());

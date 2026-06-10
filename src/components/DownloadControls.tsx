@@ -1,15 +1,16 @@
-import { type RefObject } from 'react';
+import { useState, type RefObject } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IconClipboardPlus, IconFolder, IconFolderFilled, IconMusic, IconPhoto, IconPlayerPlay, IconTrash, IconFileText } from '@tabler/icons-react';
 import { Button } from '../ui/button';
+import { Checkbox } from '../ui/checkbox';
 
 interface DownloadControlsProps {
   videoLink: string;
   setVideoLink: (v: string) => void;
   selectedDirectory: FileSystemDirectoryHandle | null;
   setSelectedDirectory: (h: FileSystemDirectoryHandle | null) => void;
-  queueSingle: (format: 'video' | 'audio' | 'image') => void;
-  uploadList: () => void;
+  queueSingle: (format: 'video' | 'audio' | 'image', asZip: boolean) => void;
+  uploadList: (asZip: boolean) => void;
   fileInputRef: RefObject<HTMLInputElement>;
 }
 
@@ -25,6 +26,8 @@ export function DownloadControls({
   uploadList,
   fileInputRef,
 }: DownloadControlsProps) {
+  const [asZip, setAsZip] = useState(true);
+
   const handleSelectDirectory = async () => {
     if (!('showDirectoryPicker' in window)) return alert('Directory picker not supported. Use Chrome, Edge, or Opera.');
     try {
@@ -82,7 +85,7 @@ export function DownloadControls({
               placeholder='Paste video, audio, or image URL…'
               value={videoLink}
               onChange={(e) => setVideoLink(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && queueSingle('video')}
+              onKeyDown={(e) => e.key === 'Enter' && queueSingle('video', asZip)}
               onFocus={() => {
                 if (!videoLink) handlePaste();
               }}
@@ -102,7 +105,7 @@ export function DownloadControls({
             {formatButtons.map(({ fmt, icon: Icon, label, cls }) => (
               <button
                 key={fmt}
-                onClick={() => queueSingle(fmt)}
+                onClick={() => queueSingle(fmt, asZip)}
                 className={`flex h-10 flex-1 items-center cursor-pointer justify-center gap-1.5 border px-3 text-sm font-semibold transition-all sm:h-12 sm:px-5 sm:text-sm ${cls}`}
               >
                 <Icon size={20} className='sm:size-6' stroke={1.5} />
@@ -110,6 +113,21 @@ export function DownloadControls({
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Options */}
+        <div className="flex items-center gap-2 pt-5">
+          <Checkbox
+            id="as-zip-checkbox"
+            checked={asZip}
+            onCheckedChange={setAsZip}
+          />
+          <label
+            htmlFor="as-zip-checkbox"
+            className="text-sm text-slate-300 cursor-pointer select-none hover:text-white transition-colors"
+          >
+            Download multiple images as ZIP archive
+          </label>
         </div>
       </div>
 
@@ -130,7 +148,7 @@ export function DownloadControls({
                   className='flex items-center gap-1.5'
                 >
                   <IconFolderFilled size={18} className='text-indigo-400' />
-                  <span className='truncate max-w-[150px] sm:max-w-[200px] text-white'>
+                  <span className='truncate max-w-36 sm:max-w-52 text-white'>
                     {selectedDirectory.name}
                   </span>
                 </motion.div>
@@ -165,7 +183,7 @@ export function DownloadControls({
         </div>
 
         <div className='flex items-center'>
-          <input ref={fileInputRef} type='file' accept='.txt' className='hidden' id='batch-file' onChange={uploadList} />
+          <input ref={fileInputRef} type='file' accept='.txt' className='hidden' id='batch-file' onChange={() => uploadList(asZip)} />
           <label
             htmlFor='batch-file'
             className='flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white sm:w-auto'
