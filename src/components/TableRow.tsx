@@ -160,7 +160,7 @@ export function TableRow({ item, onCancel }: TableRowProps) {
         ) : (
           <img src={thumbnail} alt='Thumbnail' className='h-full w-full object-cover' onError={() => setThumbError(true)} />
         )}
-        <div className='absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded-md bg-white/10 backdrop-blur-md shadow-sm border border-white/20 sm:left-1.5 sm:top-1.5 sm:h-7 sm:w-7'>
+        <div className='absolute left-1 top-1 p-0.5 flex h-6 w-6 items-center justify-center rounded-md bg-white/10 backdrop-blur-md shadow-sm border border-white/20 sm:left-1.5 sm:top-1.5 sm:h-7 sm:w-7'>
           {domain ? (
             <img
               src={`https://www.google.com/s2/favicons?domain=${domain}&sz=64`}
