@@ -36,12 +36,26 @@ export function StatusBadge({ status }: StatusBadgeProps) {
 
   const Icon = style.icon;
 
+  const SHORT_STATUS: Record<string, string> = {
+    Completed: 'Done',
+    Downloading: 'DL',
+    Converting: 'Conv',
+    Merging: 'Merge',
+    Queued: 'Wait',
+    Starting: 'Start',
+    Cancelled: 'Stop',
+    Cancelling: 'Stopping',
+    Error: 'Fail',
+  };
+
+  const label = SHORT_STATUS[status] || status;
+
   return (
     <span
       className={`inline-flex items-center gap-0.5 rounded-full border px-2 py-1 text-xs font-medium sm:gap-1 sm:px-3 sm:py-1.5 ${style.cls} ${style.cls} ${style.cls}`}
     >
       {isAnimating ? <Icon size={14} className={`animate-spin sm:size-4`} /> : <Icon size={14} className='sm:size-4' />}
-      {status}
+      {label}
     </span>
   );
 }
