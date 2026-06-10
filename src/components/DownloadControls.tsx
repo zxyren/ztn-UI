@@ -148,7 +148,7 @@ export function DownloadControls({
               )}
             </AnimatePresence>
           </button>
-          
+
           <AnimatePresence>
             {selectedDirectory && (
               <motion.button
