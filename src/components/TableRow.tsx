@@ -2,7 +2,7 @@ import { apiFetch, API_BASE_URL, SESSION_ID, type DownloadItem } from './App';
 import { StatusBadge } from './StatusBadge';
 import { ProgressBar } from './Progressbar';
 import { useState, useEffect } from 'react';
-import { IconDownload, IconPhotoX, IconTrash, IconDownloadOff, IconUnlink } from '@tabler/icons-react';
+import { IconDownload, IconTrash, IconDownloadOff, IconUnlink } from '@tabler/icons-react';
 import { Button } from '../ui/button';
 
 const thumbCache = new Map<string, { thumbnail: string; title: string }>();
@@ -154,8 +154,8 @@ export function TableRow({ item, onCancel }: TableRowProps) {
             <div className='h-6 w-6 animate-spin rounded-full border-2 border-white/10 border-t-indigo-400 sm:h-8 sm:w-8' />
           </div>
         ) : thumbError || !thumbnail ? (
-          <div className='flex h-full w-full items-center justify-center bg-white/5'>
-            <IconPhotoX size={24} strokeWidth={1.5} className='text-white sm:size-8' />
+          <div className='h-full w-full flex items-center justify-center'>
+            <img src='/placeholder.svg' alt='No thumbnail' className='h-full w-full object-cover' />
           </div>
         ) : (
           <img src={thumbnail} alt='Thumbnail' className='h-full w-full object-cover' onError={() => setThumbError(true)} />
