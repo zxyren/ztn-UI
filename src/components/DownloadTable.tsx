@@ -130,10 +130,10 @@ export function DownloadTable({
                     setActiveTab(tab.key);
                     setCurrentPage(1);
                   }}
-                  className={`inline-flex min-w-16 cursor-pointer items-center justify-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold transition duration-200 sm:px-4 sm:py-2 sm:text-sm ${selected ? 'bg-white text-slate-950 border-transparent shadow-sm shadow-white/10' : 'border-transparent text-slate-300 hover:text-white hover:bg-white/10'}`}
+                  className={`inline-flex min-w-16 cursor-pointer items-center justify-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold transition duration-200 sm:px-4 sm:py-2 sm:text-sm ${selected ? 'bg-primary text-primary-foreground border-transparent shadow-sm shadow-white/10' : 'border-transparent text-slate-300 hover:text-white hover:bg-white/10'}`}
                 >
                   <span>{tab.label}</span>
-                  <span className={`inline-flex h-5 min-w-[1.4rem] items-center justify-center rounded-full px-2 text-[0.65rem] font-semibold ${selected ? 'bg-slate-300 text-slate-950' : 'bg-white/10 text-slate-300'}`}>
+                  <span className={`inline-flex h-5 min-w-[1.4rem] items-center justify-center rounded-full px-2 text-[0.65rem] leading-none font-semibold ${selected ? 'bg-slate-300 text-slate-950' : 'bg-white/10 text-slate-300'}`}>
                     {tab.count}
                   </span>
                 </button>
