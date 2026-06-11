@@ -15,7 +15,7 @@ interface DownloadControlsProps {
 }
 
 const inputBase =
-  'w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-white placeholder-white/20 outline-none transition-all focus:border-indigo-500/60 focus:bg-white/8 backdrop-blur-sm';
+  'w-full rounded-2xl border border-white/20 bg-white/5 px-4 py-2.5 text-white placeholder-white/50 outline-none transition-all focus:border-white/60 backdrop-blur-sm';
 
 export function DownloadControls({
   videoLink,
