@@ -114,9 +114,11 @@ export function DownloadControls({
             ))}
           </div>
         </div>
+      </div>
 
-        {/* Options */}
-        <div className="flex items-center gap-2 pt-5">
+      <div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-white/10 pt-4 sm:pt-5'>
+        {/* Left Side: Checkbox */}
+        <div className="flex items-center gap-2">
           <Checkbox
             id="as-zip-checkbox"
             checked={asZip}
@@ -129,68 +131,69 @@ export function DownloadControls({
             Download multiple images as ZIP archive
           </label>
         </div>
-      </div>
 
-      <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-t border-white/10 pt-4 sm:pt-5'>
-        <div className='flex items-center gap-2'>
-          <button
-            type='button'
-            onClick={handleSelectDirectory}
-            className='flex h-11 flex-1 items-center cursor-pointer justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white sm:flex-none'
-          >
-            <AnimatePresence mode='popLayout'>
-              {selectedDirectory ? (
-                <motion.div
-                  key='sel'
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  className='flex items-center gap-1.5'
+        {/* Right Side: Set Save Location and Batch Upload */}
+        <div className='flex flex-col sm:flex-row items-center gap-2'>
+          <div className='flex items-center gap-2 w-full sm:w-auto'>
+            <button
+              type='button'
+              onClick={handleSelectDirectory}
+              className='flex h-11 flex-1 items-center cursor-pointer justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white sm:flex-none'
+            >
+              <AnimatePresence mode='popLayout'>
+                {selectedDirectory ? (
+                  <motion.div
+                    key='sel'
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    className='flex items-center gap-1.5'
+                  >
+                    <IconFolderFilled size={18} className='text-indigo-400' />
+                    <span className='truncate max-w-36 sm:max-w-52 text-white'>
+                      {selectedDirectory.name}
+                    </span>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key='def'
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className='flex items-center gap-1.5'
+                  >
+                    <IconFolder size={18} />
+                    <span>Set Save Location</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </button>
+
+            <AnimatePresence>
+              {selectedDirectory && (
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  onClick={() => setSelectedDirectory(null)}
+                  className='flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-red-500/20 bg-red-500/10 text-red-400 transition-colors hover:bg-red-500/20'
                 >
-                  <IconFolderFilled size={18} className='text-indigo-400' />
-                  <span className='truncate max-w-36 sm:max-w-52 text-white'>
-                    {selectedDirectory.name}
-                  </span>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key='def'
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className='flex items-center gap-1.5'
-                >
-                  <IconFolder size={18} />
-                  <span>Set Save Location</span>
-                </motion.div>
+                  <IconTrash size={18} />
+                </motion.button>
               )}
             </AnimatePresence>
-          </button>
+          </div>
 
-          <AnimatePresence>
-            {selectedDirectory && (
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                onClick={() => setSelectedDirectory(null)}
-                className='flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-red-500/20 bg-red-500/10 text-red-400 transition-colors hover:bg-red-500/20'
-              >
-                <IconTrash size={18} />
-              </motion.button>
-            )}
-          </AnimatePresence>
-        </div>
-
-        <div className='flex items-center'>
-          <input ref={fileInputRef} type='file' accept='.txt' className='hidden' id='batch-file' onChange={() => uploadList(asZip)} />
-          <label
-            htmlFor='batch-file'
-            className='flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white sm:w-auto'
-          >
-            <IconFileText size={18} />
-            <span>Batch Upload (.txt)</span>
-          </label>
+          <div className='flex items-center w-full sm:w-auto'>
+            <input ref={fileInputRef} type='file' accept='.txt' className='hidden' id='batch-file' onChange={() => uploadList(asZip)} />
+            <label
+              htmlFor='batch-file'
+              className='flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white sm:w-auto'
+            >
+              <IconFileText size={18} />
+              <span>Batch Upload (.txt)</span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
